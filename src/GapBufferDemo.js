@@ -6,19 +6,17 @@ import Editor from "./Editor";
 import "./App.css"
 
 export default function GapBufferDemo() {
-  const [handleInsert, handleDelete, text, gap, test] = useGapBuffer("");
+  const { handleDiff, text, gapSize, gapIndex } = useGapBuffer("");
 
-  console.log(gap);
-
-  const front = text.slice(0, gap.index);
-  const back = text.slice(gap.index);
-  const gapString = "·".repeat(gap.size);
+  const front = text.slice(0, gapIndex);
+  const back = text.slice(gapIndex);
+  const gapString = "·".repeat(gapSize);
 
   const buffer = front + gapString + back;
 
   return(
     <div>
-      <Editor handleInsert={handleInsert} handleDelete={handleDelete} />
+      <Editor handleDiff={handleDiff} />
       <p className="Output">{buffer}</p>
     </div>
   );

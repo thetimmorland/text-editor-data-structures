@@ -1,5 +1,11 @@
 .App {
   display: flex;
+  padding: 8px
+}
+
+.Editor {
+  width: 100%;
+  resize: none;
 }
 
 .Output {
