@@ -8,38 +8,34 @@ export default function useGapBuffer() {
   const [text, setText] = useState("");
   const [gap, setGap] = useState({ index: 0, size: GAPSIZE});
 
-  const createGap = (cursor) => {
-      setGap({ index: cursor, size: GAPSIZE });
-  }
-
-  const moveGap = (cursor) => {
-      setGap(({ index, size }) => ({ index: index + 1, size: size - 1 }))
-  }
-
   const checkGap = (cursor) => {
     if (gap.size === 0) {
-    } else if (cursor === gap.index) {
-    } else {
+      setGap({ index: cursor, size: GAPSIZE });
+    } else if (cursor !== gap.index) {
+      setGap(({ size }) => ({ index: cursor, size }))
     }
   }
 
   const handleInsert = (cursor, toInsert) => {
     console.log("insert: ", {cursor, toInsert});
-
+    checkGap(cursor);
 
     const front = text.slice(0, cursor);
     const back = text.slice(cursor);
+
     setText(front + toInsert + back);
+    setGap(({ index, size }) => ({ index: index + 1, size: size - 1 }))
   }
 
   const handleDelete = (cursor, count) => {
     console.log("delete: ", {cursor, count});
+    checkGap(cursor);
 
     const front = text.slice(0, cursor);
     const back = text.slice(cursor + count);
 
-    setGap(({ index, size }) => (index - 1))
     setText(front + back);
+    setGap(({ index, size }) => ({ index, size: size + count }))
   }
 
   const test = (value) => {

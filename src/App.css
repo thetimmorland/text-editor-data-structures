@@ -2,6 +2,6 @@
   display: flex;
 }
 
-.TextBox {
-  width: 100%;
+.Output {
+  font-family: "Courier New", Courier, monospace;
 }
